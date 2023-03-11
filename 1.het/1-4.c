@@ -2,18 +2,37 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define MIN 500
+#define MAX 1000
+
+int random_int();
+float random_float();
+
 int main() {
-  srand(time(NULL));
   int randInt;
   float randFloat;
 
   printf("random int\n");
-  randInt = (rand() % (1000 - 500 + 1)) + 500;
+  randInt = random_int(MIN, MAX);
   printf("%d\n", randInt);
-  
+
   printf("\nrandom float\n");
-  randFloat = ((float)rand()/RAND_MAX)*(float)(500.0) + 500;
+  randFloat = random_float(MIN, MAX);
   printf("%f", randFloat);
 
   return 0;
+}
+
+int random_int(int min, int max) {
+    srand(time(NULL));
+    int r = (rand() % (max - min + 1)) + min;
+
+    return r;
+}
+
+float random_float(int min, int max) {
+    srand(time(NULL));
+    float r = ((float)rand()/RAND_MAX)*(float)(min) + (500);
+
+    return r;
 }
