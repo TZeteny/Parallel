@@ -1,0 +1,3 @@
+Beadandó
+
+Szöveg keresése fájlban
