@@ -9,7 +9,7 @@ Makefile: gcc matrix_multi.c -fopenmp -o -matrix.exe
 #include <time.h>
 #include <string.h>
 
-#define N 10 //Size of the matrices (N*N)
+#define N 3 //Size of the matrices (N*N)
 
 void fill_matrix();
 void print_matrix();
