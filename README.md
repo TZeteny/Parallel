@@ -15,10 +15,11 @@ A szöveg Bram Stoker Draculájából lett másolva.
 
 
 Mátrix szorzás egy és több szálon.
-3x3-as méretű mátrixokat használtam, hogy könnyen ellenőrizhető legyen az eredmény.
+3x3-as méretű mátrixokat használtam az első teszthez, hogy könnyen ellenőrizhető legyen az eredmény.
+A méret és szálak száma megadható.
 
 
-3. Gauss - Jordán
+3. Gauss Ellimináció
 
 
-G - J elimináció egy és több szálon pthreaddel.
+G elimináció egy és több szálon pthreaddel.
