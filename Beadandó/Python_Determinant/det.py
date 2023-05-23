@@ -16,28 +16,20 @@ def fill_matrix(matrix, n):
 def fill_matrix_random(matrix, n):
     for rows in range(n):
         for cols in range(n):
-            matrix[rows][cols] = random.randint(0, 3)
+            matrix[rows][cols] = random.randint(0, 4)
 
 
-def det_helper(AM, fd, n):
-    for i in range(fd + 1, n):  # B) only use rows below fd row
-        if AM[fd][fd] == 0:  # C) if diagonal is zero ...
-            AM[fd][fd] == 1.0e-18  # change to ~zero
-        # D) cr stands for "current row"
-        crScaler = AM[i][fd] / AM[fd][fd]
-        # E) cr - crScaler * fdRow, one element at a time
-        for j in range(n):
-            AM[i][j] -= crScaler * AM[fd][j]
-            
-            
+
 def determinant(A):
     # Section 1: Establish n parameter and copy A
     n = len(A)
     AM = A
 
     # Section 2: Row ops on A to get in upper triangle form
-    det_helper(AM, fd, n)
-
+    for fd in range(n - 1):  # A) fd stands for focus diagonal
+        for i in range(fd + 1, n):  # B) only use rows below fd row
+            det_helper(AM, fd, n);
+            print(f"Matrix after {fd + 1}. loop:\n{AM}\n")
     # Section 3: Once AM is in upper triangle form ...
     product = 1.0
     for i in range(n):
@@ -45,6 +37,21 @@ def determinant(A):
         product *= AM[i][i]
 
     return product
+
+
+def det_helper(AM, fd, n):
+    for i in range(fd + 1, n):  # B) only use rows below fd row
+        if AM[fd][fd] == 0:  # C) if diagonal is zero ...
+            # AM[fd][fd] += 1.0e-18  # change to ~zero
+            for k in range(n):
+                temp = -1 * AM[fd][k]
+                AM[fd][k] = AM[i][k]
+                AM[i][k] = temp
+        # D) cr stands for "current row"
+        crScaler = AM[i][fd] / AM[fd][fd]
+        # E) cr - crScaler * fdRow, one element at a time
+        for j in range(n):
+            AM[i][j] -= crScaler * AM[fd][j]
 
 
 def determinant_parallel(A):
@@ -70,6 +77,7 @@ def determinant_parallel(A):
 
 
 if __name__ == "__main__":
+    """
     N = 3
     file = open("results.txt", "w")
 
@@ -94,23 +102,21 @@ if __name__ == "__main__":
         file.write(f"Threaded runtime: {time2 * 1000}ms\n")
         print(f"Execution time single: {time1 * 1000}ms")
         print(f"Execution time multi: {time2 * 1000}ms")
+    """
 
-    """"
     N = 3
-    matrix = np.empty([N, N], dtype=int64)
-    fill_matrix(matrix, N) # det will always be 0
-    # print(matrix)
-    matB = matrix
-    # print(matB)
+    # matrix = [ [0, 1, 3], [2, 1, 1], [1, 3, 2] ]
+    matrix = np.zeros([N, N])
+    fill_matrix_random(matrix, N)
+    print(matrix)
 
     time1 = timeit.default_timer()
     print(f"Det single: {determinant(matrix)}")
     time1 = timeit.default_timer() - time1
 
     time2 = timeit.default_timer()
-    print(f"Det parallel: {determinant_parallel(matB)}")
+    print(f"Det parallel: {determinant_parallel(matrix)}")
     time2 = timeit.default_timer() - time2
 
     print(f"Execution time single: {time1 * 1000}ms")
     print(f"Execution time multi: {time2 * 1000}ms")
-    """
