@@ -27,7 +27,6 @@ def determinant(A):
 
     # Section 2: Row ops on A to get in upper triangle form
     for fd in range(n - 1):  # A) fd stands for focus diagonal
-        for i in range(fd + 1, n):  # B) only use rows below fd row
             det_helper(AM, fd, n);
             print(f"Matrix after {fd + 1}. loop:\n{AM}\n")
     # Section 3: Once AM is in upper triangle form ...
